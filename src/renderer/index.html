@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>番茄钟</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="phase-label">空闲</div>
+    <div id="timer-container">
+      <svg id="progress-ring" width="120" height="120" viewBox="0 0 120 120">
+        <circle id="ring-bg" cx="60" cy="60" r="52" />
+        <circle id="ring-fg" cx="60" cy="60" r="52" />
+      </svg>
+      <div id="timer-text">25:00</div>
+    </div>
+    <div id="controls">
+      <button id="btn-reset" class="btn btn-sm" title="重置">↺</button>
+      <button id="btn-start" class="btn btn-primary" title="开始">▶</button>
+      <button id="btn-stop" class="btn btn-sm" title="停止">⏹</button>
+    </div>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
