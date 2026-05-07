@@ -12,6 +12,7 @@ class Timer {
 
   get state() { return this._phase; }
   get remainingSeconds() { return this._remaining; }
+  get isRunning() { return this._intervalId !== null; }
 
   start() {
     if (this._phase === 'idle') {
@@ -33,6 +34,7 @@ class Timer {
   }
 
   reset() {
+    this._clearInterval();
     this._remaining = this._phase === 'break' ? this.breakDuration : this.focusDuration;
     this._emitTick();
   }

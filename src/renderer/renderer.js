@@ -46,8 +46,7 @@ function updateProgress(remaining, total) {
 }
 
 // IPC handlers
-ipcRenderer.on('timer:tick', (_event, remaining, phase) => {
-  const total = phase === 'break' ? 5 * 60 : 25 * 60;
+ipcRenderer.on('timer:tick', (_event, remaining, phase, total) => {
   timerText.textContent = formatTime(remaining);
   updateProgress(remaining, total);
 

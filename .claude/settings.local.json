@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/zhangpeng/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/**)",
+      "Read(//c/Users/zhangpeng/.claude/plugins/**)",
+      "Bash(C:/Users/zhangpeng/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/scripts/start-server.sh *)",
+      "Bash(npm install *)",
+      "Bash(npm list *)",
+      "Bash(ELECTRON_MIRROR=\"https://npmmirror.com/mirrors/electron/\" npm install)",
+      "Bash(npx electron *)",
+      "Bash(git init *)",
+      "Bash(node --test src/timer.test.js)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(node scripts/generate-assets.js)",
+      "Bash(git *)"
+    ]
+  }
+}

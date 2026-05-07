@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain } = require('electron');
 const path = require('path');
 const { Timer } = require('./src/timer');
-const { sendNotification, playBellSound } = require('./src/notification');
+const { sendNotification } = require('./src/notification');
 
 let mainWindow = null;
 let tray = null;
@@ -100,7 +100,8 @@ function setupTimer() {
 
   timer.onTick = (remaining, phase) => {
     if (mainWindow && !mainWindow.isDestroyed()) {
-      mainWindow.webContents.send('timer:tick', remaining, phase);
+      const total = phase === 'break' ? timer.breakDuration : timer.focusDuration;
+      mainWindow.webContents.send('timer:tick', remaining, phase, total);
     }
     updateTrayIcon(phase);
   };
@@ -110,19 +111,29 @@ function setupTimer() {
       phase === 'focus' ? '专注完成！' : '休息结束',
       phase === 'focus' ? '该休息一下了 🌿' : '准备好开始新一轮专注了吗？'
     );
-    playBellSound();
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('timer:complete', phase);
     }
   };
 }
 
+function sendTimerState(state) {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.send('timer:state', state);
+  }
+}
+
 // ── IPC handlers ──
 ipcMain.on('timer:start', () => {
   if (timer.state === 'idle' || timer.state === 'break') {
     timer.start();
+    sendTimerState('running');
+  } else if (timer.isRunning) {
+    timer.pause();
+    sendTimerState('paused');
   } else {
-    timer.pause();     // toggle: running → pause
+    timer.resume();
+    sendTimerState('running');
   }
 });
 
